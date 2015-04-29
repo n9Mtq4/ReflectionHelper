@@ -1,0 +1,7 @@
+.idea/
+plugins/*
+out/
+.DS_Store
+*.iml
+doc/
+._*
