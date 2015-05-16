@@ -44,6 +44,23 @@ public class ReflectionHelper {
 	/**
 	 * Gets int.
 	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the int
+	 */
+	public static int getInt(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getInt(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Gets int.
+	 *
 	 * @param fieldName the field name
 	 * @param obj       the obj
 	 * @param clazz     the class
@@ -51,12 +68,27 @@ public class ReflectionHelper {
 	 */
 	public static int getInt(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getInt(obj);
-		}catch (Exception e) {
+			Field field = clazz.getDeclaredField(fieldName);
+			return getInt(field, obj);
+		}catch (NoSuchFieldException e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets int.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setInt(int x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setInt(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -71,8 +103,7 @@ public class ReflectionHelper {
 	public static void setInt(int x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setInt(obj, x);
+			setInt(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -103,6 +134,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static int.
 	 *
+	 * @param field the field
+	 * @return the static int
+	 */
+	public static int getStaticInt(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getInt(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Gets static int.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static int
@@ -110,11 +157,19 @@ public class ReflectionHelper {
 	public static int getStaticInt(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getInt(null);
+			return getStaticInt(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	public static void setStaticInt(int x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setInt(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -128,10 +183,26 @@ public class ReflectionHelper {
 	public static void setStaticInt(int x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setInt(null, x);
+			setStaticInt(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets byte.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the byte
+	 */
+	public static byte getByte(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getByte(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -146,11 +217,26 @@ public class ReflectionHelper {
 	public static byte getByte(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getByte(obj);
+			return getByte(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets byte.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setByte(byte x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setByte(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -197,6 +283,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static byte.
 	 *
+	 * @param field the field
+	 * @return the static byte
+	 */
+	public static byte getStaticByte(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getByte(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Gets static byte.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static byte
@@ -204,11 +306,25 @@ public class ReflectionHelper {
 	public static byte getStaticByte(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getByte(null);
+			return getStaticByte(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets static byte.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticByte(byte x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setByte(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -222,10 +338,26 @@ public class ReflectionHelper {
 	public static void setStaticByte(byte x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setByte(null, x);
+			setStaticByte(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets boolean.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the boolean
+	 */
+	public static boolean getBoolean(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getBoolean(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -240,11 +372,26 @@ public class ReflectionHelper {
 	public static boolean getBoolean(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getBoolean(obj);
+			return getBoolean(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	/**
+	 * Sets boolean.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setBoolean(boolean x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setBoolean(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -259,8 +406,7 @@ public class ReflectionHelper {
 	public static void setBoolean(boolean x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setBoolean(obj, x);
+			setBoolean(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -291,6 +437,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static boolean.
 	 *
+	 * @param field the field
+	 * @return the static boolean
+	 */
+	public static boolean getStaticBoolean(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getBoolean(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Gets static boolean.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static boolean
@@ -298,11 +460,25 @@ public class ReflectionHelper {
 	public static boolean getStaticBoolean(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getBoolean(null);
+			return getStaticBoolean(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	/**
+	 * Sets static boolean.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticBoolean(boolean x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setBoolean(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -316,10 +492,26 @@ public class ReflectionHelper {
 	public static void setStaticBoolean(boolean x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setBoolean(null, x);
+			setStaticBoolean(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets char.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the char
+	 */
+	public static char getChar(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getChar(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -334,11 +526,26 @@ public class ReflectionHelper {
 	public static char getChar(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getChar(obj);
+			return getChar(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets char.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setChar(char x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setChar(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -353,8 +560,7 @@ public class ReflectionHelper {
 	public static void setChar(char x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setChar(obj, x);
+			setChar(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -385,6 +591,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static char.
 	 *
+	 * @param field the field
+	 * @return the static char
+	 */
+	public static char getStaticChar(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getChar(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Gets static char.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static char
@@ -392,11 +614,25 @@ public class ReflectionHelper {
 	public static char getStaticChar(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getChar(null);
+			return getStaticChar(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets static char.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticChar(char x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setChar(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -410,10 +646,26 @@ public class ReflectionHelper {
 	public static void setStaticChar(char x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setChar(null, x);
+			setStaticChar(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets float.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the float
+	 */
+	public static float getFloat(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getFloat(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0f;
 		}
 	}
 	
@@ -428,11 +680,26 @@ public class ReflectionHelper {
 	public static float getFloat(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getFloat(obj);
+			return getFloat(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0f;
+		}
+	}
+	
+	/**
+	 * Sets float.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setFloat(float x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setFloat(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -447,8 +714,7 @@ public class ReflectionHelper {
 	public static void setFloat(float x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setFloat(obj, x);
+			setFloat(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -479,6 +745,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static float.
 	 *
+	 * @param field the field
+	 * @return the static float
+	 */
+	public static float getStaticFloat(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getFloat(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0f;
+		}
+	}
+	
+	/**
+	 * Gets static float.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static float
@@ -486,11 +768,25 @@ public class ReflectionHelper {
 	public static float getStaticFloat(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getFloat(null);
+			return getStaticFloat(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0f;
+		}
+	}
+	
+	/**
+	 * Sets static float.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticFloat(float x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setFloat(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -504,10 +800,26 @@ public class ReflectionHelper {
 	public static void setStaticFloat(float x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setFloat(null, x);
+			setStaticFloat(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets double.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the double
+	 */
+	public static double getDouble(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getDouble(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -522,11 +834,26 @@ public class ReflectionHelper {
 	public static double getDouble(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getDouble(obj);
+			return getDouble(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets double.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setDouble(double x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setDouble(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -541,8 +868,7 @@ public class ReflectionHelper {
 	public static void setDouble(double x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setDouble(obj, x);
+			setDouble(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -573,6 +899,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static double.
 	 *
+	 * @param field the field
+	 * @return the static double
+	 */
+	public static double getStaticDouble(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getDouble(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Gets static double.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static double
@@ -580,11 +922,25 @@ public class ReflectionHelper {
 	public static double getStaticDouble(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getDouble(null);
+			return getStaticDouble(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets static double.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticDouble(double x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setDouble(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -598,10 +954,26 @@ public class ReflectionHelper {
 	public static void setStaticDouble(double x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setDouble(null, x);
+			setStaticDouble(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets long.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the long
+	 */
+	public static long getLong(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return field.getLong(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -616,11 +988,26 @@ public class ReflectionHelper {
 	public static long getLong(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getLong(obj);
+			return getLong(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets long.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setLong(long x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.setLong(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -635,8 +1022,7 @@ public class ReflectionHelper {
 	public static void setLong(long x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setLong(obj, x);
+			setLong(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -667,6 +1053,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static long.
 	 *
+	 * @param field the field
+	 * @return the static long
+	 */
+	public static long getStaticLong(Field field) {
+		try {
+			field.setAccessible(true);
+			return field.getLong(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Gets static long.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static long
@@ -674,11 +1076,25 @@ public class ReflectionHelper {
 	public static long getStaticLong(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.getLong(null);
+			return getStaticLong(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Sets static long.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticLong(long x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.setLong(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -692,10 +1108,26 @@ public class ReflectionHelper {
 	public static void setStaticLong(long x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.setLong(null, x);
+			setStaticLong(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets object.
+	 *
+	 * @param field the field
+	 * @param obj the obj
+	 * @return the object
+	 */
+	public static <E> E getObject(Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			return (E) field.get(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -710,11 +1142,26 @@ public class ReflectionHelper {
 	public static <E> E getObject(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return (E) f.get(obj);
+			return getObject(f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	/**
+	 * Sets object.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 * @param obj the obj
+	 */
+	public static void setObject(Object x, Field field, Object obj) {
+		try {
+			field.setAccessible(true);
+			field.set(obj, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -729,8 +1176,7 @@ public class ReflectionHelper {
 	public static void setObject(Object x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.set(obj, x);
+			setObject(x, f, obj);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -761,6 +1207,22 @@ public class ReflectionHelper {
 	/**
 	 * Gets static object.
 	 *
+	 * @param field the field
+	 * @return the static object
+	 */
+	public static <E> E getStaticObject(Field field) {
+		try {
+			field.setAccessible(true);
+			return (E) field.get(null);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Gets static object.
+	 *
 	 * @param fieldName the field name
 	 * @param clazz     the class
 	 * @return the static object
@@ -768,11 +1230,25 @@ public class ReflectionHelper {
 	public static <E> E getStaticObject(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return (E) f.get(null);
+			return getStaticObject(f);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	/**
+	 * Sets static object.
+	 *
+	 * @param x the x
+	 * @param field the field
+	 */
+	public static void setStaticObject(Object x, Field field) {
+		try {
+			field.setAccessible(true);
+			field.set(null, x);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -786,8 +1262,7 @@ public class ReflectionHelper {
 	public static void setStaticObject(Object x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			f.set(null, x);
+			setStaticObject(x, f);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
