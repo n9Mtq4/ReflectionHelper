@@ -29,6 +29,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -2343,6 +2344,77 @@ public class ReflectionHelper {
 		}catch (ClassNotFoundException e) {
 			return null;
 		}
+	}
+	
+	
+	/**
+	 * This fixes the issue in java of getDeclaredFields not searching
+	 * the class's inherited methods.
+	 * */
+	public static Field[] getAllDeclaredFields(Class clazz) {
+		
+		ArrayList<Field> fields = new ArrayList<Field>();
+		
+//		loop through all super classes until getSuperClass == null
+		Class currentClass = clazz;
+		while (currentClass != null) {
+			fields.addAll(Arrays.asList(currentClass.getDeclaredFields()));
+			currentClass = clazz.getSuperclass();
+		}
+		
+		Field[] fields1 = new Field[fields.size()];
+		System.arraycopy(fields.toArray(), 0, fields1, 0, fields.size());
+		return fields1;
+		
+	}
+	
+	/**
+	 * Get a field by name. Also searches inherited fields.
+	 * */
+	public static Field getAllDeclaredField(String name, Class clazz) throws NoSuchFieldException {
+		Class currentClass = clazz;
+		while (currentClass != null) {
+			try {
+				
+				Field f = currentClass.getDeclaredField(name);
+				return f;
+				
+			}catch (NoSuchFieldException e) {
+			}
+			currentClass = clazz.getSuperclass();
+		}
+		
+		throw new NoSuchFieldException(name);
+	}
+	
+	public static Method[] getAllDeclaredMethods(Class clazz) {
+		ArrayList<Field> methods = new ArrayList<Field>();
+		
+//		loop through all super classes until getSuperClass == null
+		Class currentClass = clazz;
+		while (currentClass != null) {
+			methods.addAll(Arrays.asList(currentClass.getDeclaredFields()));
+			currentClass = clazz.getSuperclass();
+		}
+		
+		Method[] methods1 = new Method[methods.size()];
+		System.arraycopy(methods.toArray(), 0, methods1, 0, methods.size());
+		return methods1;
+	}
+	
+	public static Method getAllDeclaredMethod(String name, Class[] params, Class clazz) throws NoSuchMethodException {
+		Class currentClass = clazz;
+		while (currentClass != null) {
+			try {
+				
+				Method m = currentClass.getDeclaredMethod(name, params);
+				return m;
+				
+			}catch (NoSuchMethodException e) {
+			}
+			currentClass = clazz.getSuperclass();
+		}
+		throw new NoSuchMethodException(name);
 	}
 	
 	/**
