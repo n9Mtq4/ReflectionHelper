@@ -2354,9 +2354,40 @@ public class ReflectionHelper {
 	public static Class[] getClassParams(Object[] params) {
 		Class[] classParams = new Class[params.length];
 		for (int i = 0; i < classParams.length; i++) {
-			classParams[i] = params[i].getClass();
+			Class clazz = params[i].getClass();
+			if (isPrimitive(clazz)) {
+				classParams[i] = getPrimitive(clazz);
+			}else {
+				classParams[i] = clazz;
+			}
 		}
 		return classParams;
+	}
+	
+	public static boolean isPrimitive(Class clazz) {
+		return getPrimitive(clazz) != null;
+	}
+	
+	/**
+	 * Primitive types have two classes in java.
+	 * The primitive one (ie. int.class) and the 
+	 * Object one (ie. Integer.class).
+	 * This takes the Object one (ie. Integer.class)
+	 * and returns a primitive one (ie. int.class)
+	 *
+	 * @param clazz The Object class to get the primitive version
+	 * @return The Primitive version, or null if there isn't one   
+	 * */
+	public static Class getPrimitive(Class clazz) {
+		if (clazz == Boolean.class) return boolean.class;
+		if (clazz == Byte.class) return byte.class;
+		if (clazz == Character.class) return char.class;
+		if (clazz == Double.class) return double.class;
+		if (clazz == Float.class) return float.class;
+		if (clazz == Long.class) return long.class;
+		if (clazz == Short.class) return short.class;
+		if (clazz == Integer.class) return int.class;
+		return null;
 	}
 	
 }
