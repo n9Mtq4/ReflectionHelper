@@ -2427,8 +2427,8 @@ public class ReflectionHelper {
 		Class[] classParams = new Class[params.length];
 		for (int i = 0; i < classParams.length; i++) {
 			Class clazz = params[i].getClass();
-			if (isPrimitive(clazz)) {
-				classParams[i] = getPrimitive(clazz);
+			if (canBePrimitive(clazz)) {
+				classParams[i] = getPrimitiveClass(clazz);
 			}else {
 				classParams[i] = clazz;
 			}
@@ -2436,8 +2436,26 @@ public class ReflectionHelper {
 		return classParams;
 	}
 	
+	/**
+	 * Checks if the class has a primitive version.
+	 * 
+	 * @param clazz The class to check
+	 * @return If the class given has a primitive version
+	 * @see ReflectionHelper#isPrimitive(Class)
+	 * */
+	public static boolean canBePrimitive(Class clazz) {
+		return getPrimitiveClass(clazz) != null;
+	}
+	
+	/**
+	 * Checks if the given class is primitive.
+	 * 
+	 * @param clazz The class to check
+	 * @return If the class is primitive
+	 * @see ReflectionHelper#canBePrimitive(Class)
+	 * */
 	public static boolean isPrimitive(Class clazz) {
-		return getPrimitive(clazz) != null;
+		return getObjectClass(clazz) != null;
 	}
 	
 	/**
@@ -2448,9 +2466,10 @@ public class ReflectionHelper {
 	 * and returns a primitive one (ie. int.class)
 	 *
 	 * @param clazz The Object class to get the primitive version
-	 * @return The Primitive version, or null if there isn't one   
+	 * @return The Primitive version, or null if there isn't one
+	 * @see ReflectionHelper#getObjectClass(Class)
 	 * */
-	public static Class getPrimitive(Class clazz) {
+	public static Class getPrimitiveClass(Class clazz) {
 		if (clazz == Boolean.class) return boolean.class;
 		if (clazz == Byte.class) return byte.class;
 		if (clazz == Character.class) return char.class;
@@ -2461,5 +2480,28 @@ public class ReflectionHelper {
 		if (clazz == Integer.class) return int.class;
 		return null;
 	}
+	
+	/**
+	 * Primitive types have two classes in java.
+	 * The primitive one (ie. int.class) and the 
+	 * Object one (ie. Integer.class).
+	 * This takes the Object one (ie. int.class)
+	 * and returns the primitive one (ie. Integer.class)
+	 *
+	 * @param clazz The primitive class to get the Object version
+	 * @return The Object version, or null if there isn't one
+	 * @see ReflectionHelper#getPrimitiveClass(Class)
+	 * */
+	public static Class getObjectClass(Class clazz) {
+		if (clazz == boolean.class) return Boolean.class;
+		if (clazz == byte.class) return Byte.class;
+		if (clazz == char.class) return Character.class;
+		if (clazz == double.class) return Double.class;
+		if (clazz == float.class) return Float.class;
+		if (clazz == long.class) return Long.class;
+		if (clazz == short.class) return Short.class;
+		if (clazz == int.class) return Integer.class;
+		return null;
+	} 
 	
 }
