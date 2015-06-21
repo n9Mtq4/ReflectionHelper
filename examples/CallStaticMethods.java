@@ -25,6 +25,7 @@ public class CallStaticMethods {
 //		call a void method
 		ReflectionHelper.callStaticVoidMethod("printStuff", CallStaticMethods.class);
 //		the ints default to Integer.class, so this requires a little more work
+//		as of f3336a1004584e8bf453f3b1d249703173b45d90 this is no longer nessassary! It will remain in the example though.
 		int i = ReflectionHelper.callStaticIntMethod("addIntegers", CallStaticMethods.class, new Class[]{int.class, int.class}, new Object[]{4, 5});
 		System.out.println(i);
 //		call a method with a return of an object

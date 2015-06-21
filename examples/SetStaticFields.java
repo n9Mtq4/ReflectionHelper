@@ -24,6 +24,7 @@ public class SetStaticFields {
 		print(anObject.s);
 		
 //		now lets set some new values, even though they are private
+//		this isn't a good example because we are in the same class, but it will work if they are private elsewhere.
 		ReflectionHelper.setStaticObject("Hello CHANGED World", "text", SetStaticFields.class);
 		ReflectionHelper.setStaticInt(5555, "integer", SetStaticFields.class);
 		ReflectionHelper.setStaticObject(new AnObject("This is a changed object"), "anObject", SetStaticFields.class);
