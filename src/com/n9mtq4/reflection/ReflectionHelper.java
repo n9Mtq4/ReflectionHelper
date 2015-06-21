@@ -43,7 +43,7 @@ import java.util.jar.JarFile;
 public class ReflectionHelper {
 	
 	/**
-	 * Gets int.
+	 * Gets a int.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -60,7 +60,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets int.
+	 * Gets a int.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -111,7 +111,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets int.
+	 * Gets a int.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -133,7 +133,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static int.
+	 * Gets a static int.
 	 *
 	 * @param field the field
 	 * @return the static int
@@ -149,7 +149,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static int.
+	 * Gets a static int.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -197,7 +197,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets byte.
+	 * Gets a byte.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -214,7 +214,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets byte.
+	 * Gets a byte.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -266,7 +266,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets byte.
+	 * Gets a byte.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -288,7 +288,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static byte.
+	 * Gets a static byte.
 	 *
 	 * @param field the field
 	 * @return the static byte
@@ -304,7 +304,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static byte.
+	 * Gets a static byte.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -352,7 +352,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets boolean.
+	 * Gets a boolean.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -369,7 +369,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets boolean.
+	 * Gets a boolean.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -420,7 +420,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets boolean.
+	 * Gets a boolean.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -442,7 +442,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static boolean.
+	 * Gets a static boolean.
 	 *
 	 * @param field the field
 	 * @return the static boolean
@@ -458,7 +458,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static boolean.
+	 * Gets a static boolean.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -506,7 +506,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets char.
+	 * Gets a char.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -523,7 +523,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets char.
+	 * Gets a char.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -574,7 +574,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets char.
+	 * Gets a char.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -596,7 +596,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static char.
+	 * Gets a static char.
 	 *
 	 * @param field the field
 	 * @return the static char
@@ -612,7 +612,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static char.
+	 * Gets a static char.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -660,7 +660,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets float.
+	 * Gets a float.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -677,7 +677,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets float.
+	 * Gets a float.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -728,7 +728,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets float.
+	 * Gets a float.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -750,7 +750,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static float.
+	 * Gets a static float.
 	 *
 	 * @param field the field
 	 * @return the static float
@@ -766,7 +766,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static float.
+	 * Gets a static float.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -814,7 +814,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets double.
+	 * Gets a double.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -831,7 +831,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets double.
+	 * Gets a double.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -882,7 +882,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets double.
+	 * Gets a double.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -904,7 +904,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static double.
+	 * Gets a static double.
 	 *
 	 * @param field the field
 	 * @return the static double
@@ -920,7 +920,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static double.
+	 * Gets a static double.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -968,7 +968,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets long.
+	 * Gets a long.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -985,7 +985,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets long.
+	 * Gets a long.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -1036,7 +1036,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets long.
+	 * Gets a long.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -1058,7 +1058,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static long.
+	 * Gets a static long.
 	 *
 	 * @param field the field
 	 * @return the static long
@@ -1074,7 +1074,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static long.
+	 * Gets a static long.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -1122,7 +1122,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets short.
+	 * Gets a short.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -1139,7 +1139,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets short.
+	 * Gets a short.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -1190,7 +1190,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets short.
+	 * Gets a short.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -1214,7 +1214,7 @@ public class ReflectionHelper {
 	
 	
 	/**
-	 * Gets static short.
+	 * Gets a static short.
 	 *
 	 * @param field the field
 	 * @return the static short
@@ -1231,7 +1231,7 @@ public class ReflectionHelper {
 	
 	
 	/**
-	 * Gets static short.
+	 * Gets a static short.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the clazz
@@ -1280,7 +1280,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets object.
+	 * Gets a object.
 	 *
 	 * @param field the field
 	 * @param obj the obj
@@ -1297,7 +1297,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets object.
+	 * Gets a object.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -1348,7 +1348,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets object.
+	 * Gets a object.
 	 *
 	 * @param fieldName the field name
 	 * @param obj the obj
@@ -1370,7 +1370,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static object.
+	 * Gets a static object.
 	 *
 	 * @param field the field
 	 * @return the static object
@@ -1386,7 +1386,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets static object.
+	 * Gets a static object.
 	 *
 	 * @param fieldName the field name
 	 * @param clazz the class
@@ -2301,7 +2301,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets class by simple name.
+	 * Gets a class by simple name.
 	 *
 	 * @param simpleName the simple name
 	 * @return the class by simple name
@@ -2333,7 +2333,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
-	 * Gets class by full name.
+	 * Gets a class by full name.
 	 *
 	 * @param className the class name
 	 * @return the class by full name
