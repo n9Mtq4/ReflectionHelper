@@ -2346,6 +2346,18 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Tries to get a class by its full name. If that fails, then
+	 * it will try to get the class by its simple name.
+	 * 
+	 * @param name The name of the Class.
+	 * @return The class, or null if no class is found
+	 * */
+	public static Class getClass(String name) {
+		Class c = getClassByFullName(name);
+		if (c != null) return c;
+		return getClassBySimpleName(name);
+	}
 	
 	/**
 	 * This fixes the issue in java of getDeclaredFields not searching
