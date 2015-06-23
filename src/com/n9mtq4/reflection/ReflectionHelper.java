@@ -2406,7 +2406,7 @@ public class ReflectionHelper {
 		Class currentClass = clazz;
 		while (currentClass != null) {
 			methods.addAll(Arrays.asList(currentClass.getDeclaredFields()));
-			currentClass = clazz.getSuperclass();
+			currentClass = currentClass.getSuperclass();
 		}
 		
 		Method[] methods1 = new Method[methods.size()];
@@ -2415,15 +2415,48 @@ public class ReflectionHelper {
 	}
 	
 	public static Method getAllDeclaredMethod(String name, Class[] params, Class clazz) throws NoSuchMethodException {
+		try {
+			Method m = findAllDeclaredMethodByParams(name, params, clazz);
+			return m;
+		}catch (NoSuchMethodException e) {}
+		
+		Class currentClass = clazz;
+		while (currentClass != null) {
+			
+			Method[] methods = getAllDeclaredMethods(currentClass);
+			ArrayList<Method> possibleMethods = new ArrayList<Method>();
+			for (Method method : methods) {
+				if (method.getName().equals(name)) possibleMethods.add(method);
+			}
+			
+//			if there is only one possible method
+			if (possibleMethods.size() == 1 && possibleMethods.get(0).getParameterTypes().length == params.length) {
+				return possibleMethods.get(0);
+			}
+			
+//			if there are more than one, try to isolate by number of params
+			for (Method method : possibleMethods) {
+				if (method.getParameterTypes().length != params.length) possibleMethods.remove(method);
+			}
+			if (possibleMethods.size() == 1) return possibleMethods.get(0);
+			
+//			if there are still more than one, try to narrow it down by superclasses
+//			TODO: search superclasses of params to find a viable method
+			
+			currentClass = currentClass.getSuperclass();
+		}
+		
+		throw new NoSuchMethodException(name);
+		
+	}
+	
+	public static Method findAllDeclaredMethodByParams(String name, Class[] params, Class clazz) throws NoSuchMethodException {
 		Class currentClass = clazz;
 		while (currentClass != null) {
 			try {
-				
 				Method m = currentClass.getDeclaredMethod(name, params);
 				return m;
-				
-			}catch (NoSuchMethodException e) {
-			}
+			}catch (NoSuchMethodException e) {}
 			currentClass = currentClass.getSuperclass();
 		}
 		throw new NoSuchMethodException(name);
