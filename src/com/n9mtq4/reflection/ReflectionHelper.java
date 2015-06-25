@@ -2523,14 +2523,14 @@ public class ReflectionHelper {
 			}
 			
 //			if there is only one possible method
-			if (possibleMethods.size() == 1 && possibleMethods.get(0).getParameterCount() == params.length) {
+			if (possibleMethods.size() == 1 && possibleMethods.get(0).getParameterTypes().length == params.length) {
 				return possibleMethods.get(0);
 			}
 			
 //			if there are more than one, try to isolate by number of params
 			ArrayList<Method> nPossibleMethods = new ArrayList<Method>();
 			for (Method method : possibleMethods) {
-				if (method.getParameterCount() == params.length) nPossibleMethods.add(method);
+				if (method.getParameterTypes().length == params.length) nPossibleMethods.add(method);
 			}
 			possibleMethods = nPossibleMethods;
 			if (possibleMethods.size() == 1) return possibleMethods.get(0);
