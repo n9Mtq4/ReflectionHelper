@@ -1469,6 +1469,27 @@ public class ReflectionHelper {
 	 * Call object method.
 	 *
 	 * @param <E>  the type parameter
+	 * @param method the method
+	 * @param obj the obj
+	 * @param params the params
+	 * @return the e
+	 */
+	public static <E> E callObjectMethod(Method method, Object obj, Object... params) {
+		method.setAccessible(true);
+		try {
+			return (E) method.invoke(obj, params);
+		}catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Call object method.
+	 *
+	 * @param <E>  the type parameter
 	 * @param methodName the method name
 	 * @param obj the obj
 	 * @param clazz the class
@@ -1477,16 +1498,10 @@ public class ReflectionHelper {
 	 * @return the object
 	 */
 	public static <E> E callObjectMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
-		Method m = null;
 		try {
-			m = getAllDeclaredMethod(methodName, classParams, clazz);
-			m.setAccessible(true);
-			return (E) m.invoke(obj, params);
+			Method m = getAllDeclaredMethod(methodName, classParams, clazz);
+			return callObjectMethod(m, obj, params);
 		}catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;
