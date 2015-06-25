@@ -1552,6 +1552,18 @@ public class ReflectionHelper {
 	 * Call static object method.
 	 *
 	 * @param <E>  the type parameter
+	 * @param method the method
+	 * @param params the params
+	 * @return the e
+	 */
+	public static <E> E callStaticObjectMethod(Method method, Object... params) {
+		return callObjectMethod(method, null, params);
+	}
+	
+	/**
+	 * Call static object method.
+	 *
+	 * @param <E>  the type parameter
 	 * @param methodName the method name
 	 * @param clazz the class
 	 * @param classParams the class params
@@ -1559,7 +1571,12 @@ public class ReflectionHelper {
 	 * @return the object
 	 */
 	public static <E> E callStaticObjectMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
-		return callObjectMethod(methodName, null, clazz, classParams, params);
+		try {
+			return callStaticObjectMethod(getAllDeclaredMethod(methodName, classParams, clazz));
+		}catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
