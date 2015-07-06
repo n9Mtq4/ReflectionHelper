@@ -2464,7 +2464,7 @@ public class ReflectionHelper {
 		Class currentClass = clazz;
 		while (currentClass != null) {
 			fields.addAll(Arrays.asList(currentClass.getDeclaredFields()));
-			currentClass = clazz.getSuperclass();
+			currentClass = currentClass.getSuperclass();
 		}
 		
 		Field[] fields1 = new Field[fields.size()];
