@@ -14,15 +14,7 @@ public class EnhancedProxy implements InvocationHandler {
 		return (E) Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(), new EnhancedProxy(obj, handler));
 	}
 	
-	private Object obj;
-	EnhancedInvocationHandler handler;
-	
-	public EnhancedProxy(Object obj, EnhancedInvocationHandler handler) {
-		this.obj = obj;
-		this.handler = handler;
-	}
-	
-	public void callChild(Object obj, Method method, Object[] args) {
+	public static void callChild(Object obj, Method method, Object[] args) {
 		try {
 			method.setAccessible(true);
 			method.invoke(obj, args);
@@ -31,6 +23,14 @@ public class EnhancedProxy implements InvocationHandler {
 		}catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private Object obj;
+	EnhancedInvocationHandler handler;
+	
+	public EnhancedProxy(Object obj, EnhancedInvocationHandler handler) {
+		this.obj = obj;
+		this.handler = handler;
 	}
 	
 	@Override
