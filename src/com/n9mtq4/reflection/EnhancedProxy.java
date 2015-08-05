@@ -1,6 +1,7 @@
 package com.n9mtq4.reflection;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -19,6 +20,17 @@ public class EnhancedProxy implements InvocationHandler {
 	public EnhancedProxy(Object obj, EnhancedInvocationHandler handler) {
 		this.obj = obj;
 		this.handler = handler;
+	}
+	
+	public void callChild(Object obj, Method method, Object[] args) {
+		try {
+			method.setAccessible(true);
+			method.invoke(obj, args);
+		}catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
