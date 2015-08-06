@@ -15,6 +15,7 @@
 
 package com.n9mtq4.reflection;
 
+import sun.misc.Unsafe;
 import sun.net.www.protocol.file.FileURLConnection;
 
 import java.io.File;
@@ -41,6 +42,15 @@ import java.util.jar.JarFile;
  */
 @SuppressWarnings("unused")
 public class ReflectionHelper {
+	
+	/**
+	 * Gets the instance of Unsafe.
+	 * 
+	 * @return the instance of Unsafe.
+	 * */
+	public static Unsafe getUnsafe() {
+		return getStaticObject("theUnsafe", Unsafe.class);
+	}
 	
 	/**
 	 * Gets a int.
