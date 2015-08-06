@@ -10,7 +10,6 @@ import java.lang.reflect.*;
 @SuppressWarnings("unused")
 public class EnhancedProxy implements InvocationHandler {
 	
-	
 	/**
 	 * Creates a new instance of the interface with the proxy enabled. EX:<br>
 	 * <code>Interface i = newInstance(new InterfaceInstance(args), new EnhancedInvocationHandler() {...})</code>
@@ -28,7 +27,7 @@ public class EnhancedProxy implements InvocationHandler {
 	 * Calls a method. This is good to call inside the EnhancedInvocationHandler.
 	 * When called and passed the obj, method, and args from the params from
 	 * {@link com.n9mtq4.reflection.EnhancedProxy.EnhancedInvocationHandler#invoke(Object, Object, Method, Object[])}
-	 * it will 
+	 * it will call the method that was originally requested.
 	 *
 	 * @param obj the object the method is a member of. eg: <code>this</code>
 	 * @param method the method
