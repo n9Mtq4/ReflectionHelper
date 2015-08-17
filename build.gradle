@@ -1,0 +1,28 @@
+group 'ReflectionHelper'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+gradle.taskGraph.afterTask { Task task, TaskState state ->
+//    if the build succeeded
+    if (!state.failure && task.name.equalsIgnoreCase('build')) {
+//        copy the jar into the distro directory
+        copy {
+            from('build/libs/' + project.getName() + '.jar')
+            into('.')
+        }
+        exec {
+            executable 'bash'
+            //noinspection GroovyAssignabilityCheck
+            args '-c', 'rm ' + project.getName() + '-source.zip; cd src/main/; find . -name \'*.DS_Store\' -type f -delete; zip ../../' + project.getName() + '-source.zip -r java -x .* -Z deflate'
+        }
+    }
+}
