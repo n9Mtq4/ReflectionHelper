@@ -1,5 +1,6 @@
 package com.n9mtq4.reflection;
 
+import java.io.Serializable;
 import java.lang.reflect.*;
 
 /**
@@ -8,7 +9,7 @@ import java.lang.reflect.*;
  * NOTE: Some javadocs are oracles.
  */
 @SuppressWarnings("unused")
-public class EnhancedProxy implements InvocationHandler {
+public class EnhancedProxy implements InvocationHandler, Serializable {
 	
 	/**
 	 * Creates a new instance of the interface with the proxy enabled. EX:<br>
@@ -19,7 +20,8 @@ public class EnhancedProxy implements InvocationHandler {
 	 * @param handler the EnhancedInvocationHandler
 	 * @return an interface (<code>E</code>) instance (<code>obj</code>) with a proxy with an EnhancedInvocationHandler (<code>handler</code>)
 	 */
-	public static <E> E newInstance(Object obj, EnhancedInvocationHandler handler) {
+	@SuppressWarnings("unchecked")
+	public static <E> E newInstance(Object obj, EnhancedInvocationHandler handler) throws ClassCastException {
 		return (E) Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(), new EnhancedProxy(obj, handler));
 	}
 	
@@ -34,16 +36,9 @@ public class EnhancedProxy implements InvocationHandler {
 	 * @param args the args to pass to the method
 	 * @return the object the method returns (Nullable)
 	 */
-	public static Object callChild(Object obj, Method method, Object[] args) {
-		try {
-			method.setAccessible(true);
-			return method.invoke(obj, args);
-		}catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public static Object callChild(Object obj, Method method, Object[] args) throws Throwable{
+		method.setAccessible(true);
+		return method.invoke(obj, args);
 	}
 	
 	private Object obj;
@@ -74,7 +69,7 @@ public class EnhancedProxy implements InvocationHandler {
 	 * @author      Will Bresnahan
 	 * @see         Proxy
 	 */
-	public interface EnhancedInvocationHandler {
+	public interface EnhancedInvocationHandler extends Serializable {
 		
 		/**
 		 * Processes a method invocation on a proxy instance and returns
