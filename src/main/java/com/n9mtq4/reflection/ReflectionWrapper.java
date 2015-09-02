@@ -92,6 +92,27 @@ public class ReflectionWrapper<E> implements Serializable {
 	}
 	
 	/**
+	 * Sets a member field from the object.
+	 *
+	 * @param fieldName the field name
+	 * @param newValue the new value of the field
+	 */
+	public <R> void setField(String fieldName, R newValue) {
+		setObject(newValue, fieldName, object);
+	}
+	
+	/**
+	 * Sets a member field from the object.
+	 *
+	 * @param field the field
+	 * @param newValue the new value of the field
+	 */
+	public <R> void setField(Field field, R newValue) {
+		setObject(newValue, field, object);
+	}
+	
+	
+	/**
 	 * Calls a member method from the object.
 	 *
 	 * @param <R> what the method returns

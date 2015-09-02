@@ -6,7 +6,7 @@ import java.lang.reflect.*;
 /**
  * Created by will on 8/5/15 at 4:13 PM.<br>
  * A Class that simplifies using Proxies.<br>
- * NOTE: Some javadocs are oracles.
+ * NOTE: Some javadocs are oracle's.
  */
 @SuppressWarnings("unused")
 public class EnhancedProxy implements InvocationHandler, Serializable {
