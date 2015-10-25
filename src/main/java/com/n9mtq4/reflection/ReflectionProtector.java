@@ -13,6 +13,25 @@ package com.n9mtq4.reflection;
 @SuppressWarnings("unused")
 public class ReflectionProtector {
 	
+	private static final int DEFAULT_INDEX = 3;
+	
+	/**
+	 * In general, it seems that
+	 * new Throwable().getStackTrace()
+	 * is faster than
+	 * Thread.currentThread().getStackTrace()
+	 * 
+	 * 420 ms, 316 ms, 298 ms, 297 ms, 349 ms, 307 ms, 297 ms, 298 ms, 307 ms - throwable
+	 * 482 ms, 474 ms, 340 ms, 325 ms, 360 ms, 339 ms, 333 ms, 347 ms, 340 ms - thread
+	 * 
+	 * the first one requires the default index to be 3
+	 * the second one requires the default index to be 3
+	 * */
+	private StackTraceElement[] getStackTrace() {
+		return new Throwable().getStackTrace();
+//		return Thread.currentThread().getStackTrace();
+	}
+	
 	/**
 	 * Returns if the calling method was invoked with reflection.
 	 * <p>
@@ -25,7 +44,7 @@ public class ReflectionProtector {
 	}
 	
 	private static boolean usedReflection(StackTraceElement[] stackTraceElements) {
-		return usedReflection(3, stackTraceElements);
+		return usedReflection(DEFAULT_INDEX, stackTraceElements);
 	}
 	
 	/**
