@@ -18,10 +18,14 @@ public class ReflectionProtector {
 	 * <p>
 	 * WARNING: this method is (relatively) slow, so use it sparingly.
 	 * 
-	 * @return If the calling method was invoked with reflection
+	 * @return boolean - if the calling method was invoked with reflection
 	 * */
 	public static boolean usedReflection() {
-		return usedReflection(3, Thread.currentThread().getStackTrace());
+		return usedReflection(Thread.currentThread().getStackTrace());
+	}
+	
+	private static boolean usedReflection(StackTraceElement[] stackTraceElements) {
+		return usedReflection(3, stackTraceElements);
 	}
 	
 	/**
@@ -30,7 +34,7 @@ public class ReflectionProtector {
 	 * WARNING: this method is (relatively) slow, so use it sparingly.
 	 * 
 	 * @param index The index for the stacktrace
-	 * @return if the stacktrace at the given index is a reflection one.
+	 * @return boolean - if the stacktrace at the given index is a reflection one.
 	 * */
 	public static boolean usedReflection(int index) {
 		return usedReflection(index, Thread.currentThread().getStackTrace());
@@ -47,7 +51,7 @@ public class ReflectionProtector {
 	 * 
 	 * @param min The starting stacktrace index
 	 * @param max The ending stacktrace index
-	 * @return if the stacktrace within the two ranges is a reflection one
+	 * @return boolean - if the stacktrace within the two ranges is a reflection one
 	 * */
 	public static boolean usedReflection(int min, int max) {
 		return usedReflection(min, max, Thread.currentThread().getStackTrace());
