@@ -9,7 +9,7 @@ import java.lang.reflect.*;
  * NOTE: Some javadocs are oracle's.
  */
 @SuppressWarnings("unused")
-public class EnhancedProxy implements InvocationHandler, Serializable {
+public final class EnhancedProxy implements InvocationHandler, Serializable {
 	
 	/**
 	 * Creates a new instance of the interface with the proxy enabled. EX:<br>
@@ -41,8 +41,8 @@ public class EnhancedProxy implements InvocationHandler, Serializable {
 		return method.invoke(obj, args);
 	}
 	
-	private Object obj;
-	private EnhancedInvocationHandler handler;
+	private final Object obj;
+	private final EnhancedInvocationHandler handler;
 	
 	private EnhancedProxy(Object obj, EnhancedInvocationHandler handler) {
 		this.obj = obj;
@@ -50,10 +50,8 @@ public class EnhancedProxy implements InvocationHandler, Serializable {
 	}
 	
 	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		
+	public final Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		return handler.invoke(obj, proxy, method, args);
-		
 	}
 	
 	/**

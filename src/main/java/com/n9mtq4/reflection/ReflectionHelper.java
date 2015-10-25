@@ -47,7 +47,9 @@ public class ReflectionHelper {
 	 * Gets the instance of Unsafe.
 	 * 
 	 * @return the instance of Unsafe.
+	 * @deprecated {@link sun.misc.Unsafe} isn't recommended for use.
 	 * */
+	@Deprecated
 	public static Unsafe getUnsafe() {
 		return getStaticObject("theUnsafe", Unsafe.class);
 	}
@@ -2334,10 +2336,11 @@ public class ReflectionHelper {
 	 * one String from each String array within the specified two-dimensional
 	 * array.<br>
 	 * Slightly modified code from
-	 * Bobulous @ https://stackoverflow.com/questions/15868914/how-to-get-2d-array-possible-combinations/15869610
+	 * http://stackoverflow.com/a/15869610/5196460
 	 */
 	private static List<List<Class>> combinations(ArrayList<ArrayList<Class>> twoDimArray) {
 //		TODO: find a better algorithm
+		
 		// keep track of the size of each inner String array
 		int sizeArray[] = new int[twoDimArray.size()];
 		
@@ -2365,7 +2368,7 @@ public class ReflectionHelper {
 			for(int i = 0; i < twoDimArray.size(); ++i) {
 				obs.add(twoDimArray.get(i).get(counterArray[i]));
 			}
-			combinationList.add(obs);  // add new combination to list
+			combinationList.add(obs);// add new combination to list
 			
 			// Now we need to increment the counterArray so that the next
 			// combination is taken on the next iteration of this loop.
@@ -2386,6 +2389,26 @@ public class ReflectionHelper {
 	}
 	
 //	end stuff not written by me
+	
+	private static List<List<Class>> autoboxingCombinations(ArrayList<ArrayList<Class>> twoDimArray) {
+//		TODO: this isn't perfect, wont work with {int, Integer, int}
+//		will work with {int, int, Integer} and {Integer, int, int}
+		for (ArrayList<Class> params : twoDimArray) {
+			for (int i = 0; i < params.size(); i++) {
+				Class clazz = params.get(i);
+				params.set(i, isPrimitive(clazz) ? forceGetObjectClass(clazz) : forceGetPrimitiveClass(clazz));
+				twoDimArray.add(params);
+			}
+		}
+		for (ArrayList<Class> params : twoDimArray) {
+			for (int i = params.size() - 1; i > params.size(); i--) {
+				Class clazz = params.get(i);
+				params.set(i, isPrimitive(clazz) ? forceGetObjectClass(clazz) : forceGetPrimitiveClass(clazz));
+				twoDimArray.add(params);
+			}
+		}
+		return combinations(twoDimArray);
+	}
 	
 	/**
 	 * Find package names starting with.
@@ -2525,6 +2548,7 @@ public class ReflectionHelper {
 		
 		Class currentClass = clazz;
 		while (currentClass != null) {
+//			loops through all the superclasses
 			
 			Method[] methods = getAllDeclaredMethods(currentClass);
 			ArrayList<Method> possibleMethods = new ArrayList<Method>();
@@ -2559,13 +2583,24 @@ public class ReflectionHelper {
 				superClasses.add(classes);
 			}
 			
+//			try for combinations of the superclasses
 			List<List<Class>> combinations = combinations(superClasses);
 			for (List<Class> combination : combinations) {
 				Class[] c = combination.toArray(new Class[combination.size()]);
 				try {
 					Method m = findAllDeclaredMethodByParams(name, c, clazz);
 					return m;
-				}catch (NoSuchMethodException e) {}
+				}catch (NoSuchMethodException ignored) {}
+			}
+			
+//			try for combinations, but with support for autobox combos.
+			List<List<Class>> autoboxCombinations = autoboxingCombinations(superClasses);
+			for (List<Class> combination : autoboxCombinations) {
+				Class[] c = combination.toArray(new Class[combination.size()]);
+				try {
+					Method m = findAllDeclaredMethodByParams(name, c, clazz);
+					return m;
+				}catch (NoSuchMethodException ignored) {}
 			}
 			
 			currentClass = currentClass.getSuperclass();
@@ -2629,6 +2664,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
+	 * This method manually undoes java's autoboxing.
 	 * Primitive types have two classes in java.
 	 * The primitive one (ie. int.class) and the 
 	 * Object one (ie. Integer.class).
@@ -2652,6 +2688,7 @@ public class ReflectionHelper {
 	}
 	
 	/**
+	 * This method manually undoes java's autoboxing.
 	 * Primitive types have two classes in java.
 	 * The primitive one (ie. int.class) and the 
 	 * Object one (ie. Integer.class).
@@ -2672,6 +2709,30 @@ public class ReflectionHelper {
 		if (clazz == short.class) return Short.class;
 		if (clazz == int.class) return Integer.class;
 		return null;
-	} 
+	}
+	
+	/**
+	 * Like {@link ReflectionHelper#getPrimitiveClass(Class)}, but
+	 * if getPrimitiveClass returns null, this returns the original class.
+	 * 
+	 * @return the Primitive version of the class. Won't return null.
+	 * @see ReflectionHelper#getPrimitiveClass(Class)
+	 * */
+	public static Class forceGetPrimitiveClass(Class clazz) {
+		Class primitiveClass = getPrimitiveClass(clazz);
+		return primitiveClass == null ? clazz : primitiveClass;
+	}
+	
+	/**
+	 * Like {@link ReflectionHelper#getObjectClass(Class)}, but
+	 * if getObjectClass returns null, this returns the original class.
+	 * 
+	 * @return the Object version of the class. Won't return null.
+	 * @see ReflectionHelper#getObjectClass(Class)
+	 * */
+	public static Class forceGetObjectClass(Class clazz) {
+		Class objectClass = getObjectClass(clazz);
+		return objectClass == null ? clazz : objectClass;
+	}
 	
 }

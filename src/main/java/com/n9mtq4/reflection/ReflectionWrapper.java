@@ -25,7 +25,7 @@ import static com.n9mtq4.reflection.ReflectionHelper.*;
  * @since v1.1
  */
 @SuppressWarnings("unused")
-public class ReflectionWrapper<E> implements Serializable {
+public final class ReflectionWrapper<E> implements Serializable {
 	
 	/**
 	 * Wraps a new instance of an object (E) with the ReflectionWrapper.
@@ -51,7 +51,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 */
 	public static <E> ReflectionWrapper<E> newInstance(Class clazz, Object... args) {
 		E object = callConstructor(clazz, args);
-		return new ReflectionWrapper<E>(object);
+		return attachToObject(object);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class ReflectionWrapper<E> implements Serializable {
 		return new ReflectionWrapper<E>(object);
 	}
 	
-	private E object;
+	private final E object;
 	
 	private ReflectionWrapper(E object) {
 		this.object = object;
@@ -77,7 +77,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param fieldName the field name
 	 * @return the field
 	 */
-	public <R> R getField(String fieldName) {
+	public final <R> R getField(String fieldName) {
 		return getObject(fieldName, object);
 	}
 	
@@ -87,7 +87,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param field the field
 	 * @return the field
 	 */
-	public <R> R getField(Field field) {
+	public final <R> R getField(Field field) {
 		return getObject(field, object);
 	}
 	
@@ -97,7 +97,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param fieldName the field name
 	 * @param newValue the new value of the field
 	 */
-	public <R> void setField(String fieldName, R newValue) {
+	public final <R> void setField(String fieldName, R newValue) {
 		setObject(newValue, fieldName, object);
 	}
 	
@@ -107,7 +107,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param field the field
 	 * @param newValue the new value of the field
 	 */
-	public <R> void setField(Field field, R newValue) {
+	public final <R> void setField(Field field, R newValue) {
 		setObject(newValue, field, object);
 	}
 	
@@ -120,7 +120,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public <R> R callMethod(String name, Object... args) {
+	public final <R> R callMethod(String name, Object... args) {
 		return callObjectMethod(name, object, args);
 	}
 	
@@ -133,7 +133,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public <R> R callMethod(String name, Class[] classParams, Object... args) {
+	public final <R> R callMethod(String name, Class[] classParams, Object... args) {
 		return callObjectMethod(name, object, classParams, args);
 	}
 	
@@ -145,7 +145,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public <R> R callMethod(Method method, Object... args) {
+	public final <R> R callMethod(Method method, Object... args) {
 		return callObjectMethod(method, object, args);
 	}
 	
@@ -155,7 +155,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 *
 	 * @return the object the wrapper contains
 	 */
-	public E getWrappedObject() {
+	public final E getWrappedObject() {
 		return object;
 	}
 	
@@ -163,7 +163,7 @@ public class ReflectionWrapper<E> implements Serializable {
 	 * @see Object#toString()
 	 * */
 	@Override
-	public String toString() {
+	public final String toString() {
 		return "ReflectionWrapper: " + object.toString();
 	}
 	
