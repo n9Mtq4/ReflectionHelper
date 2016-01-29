@@ -11,7 +11,7 @@ package com.n9mtq4.reflection;
  * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
-public class ReflectionProtector {
+public final class ReflectionProtector {
 	
 	private static final int DEFAULT_INDEX = 3;
 	

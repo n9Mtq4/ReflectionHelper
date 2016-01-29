@@ -41,7 +41,7 @@ import java.util.jar.JarFile;
  * Class to simplify reflection calls.<br>
  */
 @SuppressWarnings("unused")
-public class ReflectionHelper {
+public final class ReflectionHelper {
 	
 	/**
 	 * Gets the instance of Unsafe.
@@ -2660,7 +2660,8 @@ public class ReflectionHelper {
 	 * @see ReflectionHelper#canBePrimitive(Class)
 	 * */
 	public static boolean isPrimitive(Class clazz) {
-		return getObjectClass(clazz) != null;
+		return clazz.isPrimitive();
+//		return getObjectClass(clazz) != null;
 	}
 	
 	/**
