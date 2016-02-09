@@ -78,7 +78,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @return the field
 	 */
 	public final <R> R getField(String fieldName) {
-		return getObject(fieldName, object);
+		return (R) getObject(fieldName, object);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @return the field
 	 */
 	public final <R> R getField(Field field) {
-		return getObject(field, object);
+		return (R) getObject(field, object);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param fieldName the field name
 	 * @param newValue the new value of the field
 	 */
-	public final <R> void setField(String fieldName, R newValue) {
+	public final void setField(String fieldName, Object newValue) {
 		setObject(newValue, fieldName, object);
 	}
 	
@@ -107,7 +107,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param field the field
 	 * @param newValue the new value of the field
 	 */
-	public final <R> void setField(Field field, R newValue) {
+	public final void setField(Field field, Object newValue) {
 		setObject(newValue, field, object);
 	}
 	
@@ -121,7 +121,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @return the return of the method, null if the method is void
 	 */
 	public final <R> R callMethod(String name, Object... args) {
-		return callObjectMethod(name, object, args);
+		return (R) callObjectMethod(name, object, args);
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @return the return of the method, null if the method is void
 	 */
 	public final <R> R callMethod(String name, Class[] classParams, Object... args) {
-		return callObjectMethod(name, object, classParams, args);
+		return (R) callObjectMethod(name, object, classParams, args);
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @return the return of the method, null if the method is void
 	 */
 	public final <R> R callMethod(Method method, Object... args) {
-		return callObjectMethod(method, object, args);
+		return (R) callObjectMethod(method, object, args);
 	}
 	
 	
