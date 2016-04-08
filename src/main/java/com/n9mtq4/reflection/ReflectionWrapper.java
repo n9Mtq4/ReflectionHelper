@@ -77,7 +77,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param fieldName the field name
 	 * @return the field
 	 */
-	public final <R> R getField(String fieldName) {
+	public final <R> R get(String fieldName) {
 		return (R) getObject(fieldName, object);
 	}
 	
@@ -87,7 +87,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param field the field
 	 * @return the field
 	 */
-	public final <R> R getField(Field field) {
+	public final <R> R get(Field field) {
 		return (R) getObject(field, object);
 	}
 	
@@ -97,7 +97,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param fieldName the field name
 	 * @param newValue the new value of the field
 	 */
-	public final void setField(String fieldName, Object newValue) {
+	public final void set(String fieldName, Object newValue) {
 		setObject(newValue, fieldName, object);
 	}
 	
@@ -107,7 +107,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param field the field
 	 * @param newValue the new value of the field
 	 */
-	public final void setField(Field field, Object newValue) {
+	public final void set(Field field, Object newValue) {
 		setObject(newValue, field, object);
 	}
 	
@@ -120,7 +120,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public final <R> R callMethod(String name, Object... args) {
+	public final <R> R call(String name, Object... args) {
 		return (R) callObjectMethod(name, object, args);
 	}
 	
@@ -133,7 +133,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public final <R> R callMethod(String name, Class[] classParams, Object... args) {
+	public final <R> R call(String name, Class[] classParams, Object... args) {
 		return (R) callObjectMethod(name, object, classParams, args);
 	}
 	
@@ -145,7 +145,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public final <R> R callMethod(Method method, Object... args) {
+	public final <R> R call(Method method, Object... args) {
 		return (R) callObjectMethod(method, object, args);
 	}
 	
