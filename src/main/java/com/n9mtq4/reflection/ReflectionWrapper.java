@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static com.n9mtq4.reflection.ReflectionHelper.*;
-
 /**
  * A class that when given an object, it will simplify the calls to ReflectionHelper
  * by automatically passing the obj param to the ReflectionHelper methods.
@@ -20,37 +18,37 @@ import static com.n9mtq4.reflection.ReflectionHelper.*;
  * </code>
  * Created by will on 8/19/15 at 11:59 AM.
  * 
- * @param <E> the type of the object that the wrapper contains
+ * @param <R> the type of the object that the wrapper contains
  * @see ReflectionHelper
  * @since v1.1
  */
 @SuppressWarnings("unused")
-public final class ReflectionWrapper<E> implements Serializable {
+public final class ReflectionWrapper<R> implements Serializable {
 	
 	/**
 	 * Wraps a new instance of an object (E) with the ReflectionWrapper.
 	 *
-	 * @param <E> the type of the object
+	 * @param <R> the type of the object
 	 * @param clazz the class to make a new instance of
 	 * @param classParams an array of classes that the args are
 	 * @param args the args to pass to the class' constructor
 	 * @return the reflection wrapper
 	 */
-	public static <E> ReflectionWrapper<E> newInstance(Class clazz, Class[] classParams, Object... args) {
-		E object = callConstructor(clazz, classParams, args);
-		return new ReflectionWrapper<E>(object);
+	public static <R> ReflectionWrapper<R> newInstance(Class clazz, Class[] classParams, Object... args) {
+		R object = ReflectionHelper.callConstructor(clazz, classParams, args);
+		return new ReflectionWrapper<R>(object);
 	}
 	
 	/**
 	 * Wraps a new instance of an object (E) with the ReflectionWrapper.
 	 *
-	 * @param <E> the type of the object
+	 * @param <R> the type of the object
 	 * @param clazz the class to make a new instance of
 	 * @param args the args to pass to the class' constructor
 	 * @return the reflection wrapper
 	 */
-	public static <E> ReflectionWrapper<E> newInstance(Class clazz, Object... args) {
-		E object = callConstructor(clazz, args);
+	public static <R> ReflectionWrapper<R> newInstance(Class clazz, Object... args) {
+		R object = ReflectionHelper.callConstructor(clazz, args);
 		return attachToObject(object);
 	}
 	
@@ -65,9 +63,9 @@ public final class ReflectionWrapper<E> implements Serializable {
 		return new ReflectionWrapper<E>(object);
 	}
 	
-	private final E object;
+	private final R object;
 	
-	private ReflectionWrapper(E object) {
+	private ReflectionWrapper(R object) {
 		this.object = object;
 	}
 	
@@ -77,8 +75,8 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param fieldName the field name
 	 * @return the field
 	 */
-	public final <R> R get(String fieldName) {
-		return (R) getObject(fieldName, object);
+	public final <T> T get(String fieldName) {
+		return (T) ReflectionHelper.<T>getObject(fieldName, object);
 	}
 	
 	/**
@@ -87,8 +85,8 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param field the field
 	 * @return the field
 	 */
-	public final <R> R get(Field field) {
-		return (R) getObject(field, object);
+	public final <T> T get(Field field) {
+		return (T) ReflectionHelper.<T>getObject(field, object);
 	}
 	
 	/**
@@ -98,7 +96,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param newValue the new value of the field
 	 */
 	public final void set(String fieldName, Object newValue) {
-		setObject(newValue, fieldName, object);
+		ReflectionHelper.setObject(newValue, fieldName, object);
 	}
 	
 	/**
@@ -108,45 +106,45 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 * @param newValue the new value of the field
 	 */
 	public final void set(Field field, Object newValue) {
-		setObject(newValue, field, object);
+		ReflectionHelper.setObject(newValue, field, object);
 	}
 	
 	
 	/**
 	 * Calls a member method from the object.
 	 *
-	 * @param <R> what the method returns
+	 * @param <T> what the method returns
 	 * @param name the name of the method
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public final <R> R call(String name, Object... args) {
-		return (R) callObjectMethod(name, object, args);
+	public final <T> T call(String name, Object... args) {
+		return (T) ReflectionHelper.<T>callObjectMethod(name, object, args);
 	}
 	
 	/**
 	 * Calls a member method from the object.
 	 *
-	 * @param <R> what the method returns
+	 * @param <T> what the method returns
 	 * @param name the name of the method
 	 * @param classParams the class params
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public final <R> R call(String name, Class[] classParams, Object... args) {
-		return (R) callObjectMethod(name, object, classParams, args);
+	public final <T> T call(String name, Class[] classParams, Object... args) {
+		return (T) ReflectionHelper.<T>callObjectMethod(name, object, classParams, args);
 	}
 	
 	/**
 	 * Calls a member method from the object.
 	 *
-	 * @param <R> what the method returns
+	 * @param <T> what the method returns
 	 * @param method the method to call
 	 * @param args the args for the method
 	 * @return the return of the method, null if the method is void
 	 */
-	public final <R> R call(Method method, Object... args) {
-		return (R) callObjectMethod(method, object, args);
+	public final <T> T call(Method method, Object... args) {
+		return (T) ReflectionHelper.<T>callObjectMethod(method, object, args);
 	}
 	
 	
@@ -155,7 +153,7 @@ public final class ReflectionWrapper<E> implements Serializable {
 	 *
 	 * @return the object the wrapper contains
 	 */
-	public final E getWrappedObject() {
+	public final R getWrappedObject() {
 		return object;
 	}
 	

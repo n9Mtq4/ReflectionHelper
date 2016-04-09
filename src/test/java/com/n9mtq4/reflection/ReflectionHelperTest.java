@@ -2,8 +2,13 @@ package com.n9mtq4.reflection;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static com.n9mtq4.reflection.ReflectionHelper.*;
+import static com.n9mtq4.reflection.ReflectionHelper.callVoidMethod;
+import static com.n9mtq4.reflection.ReflectionHelper.canBePrimitive;
+import static com.n9mtq4.reflection.ReflectionHelper.forceGetPrimitiveClass;
+import static com.n9mtq4.reflection.ReflectionHelper.getPrimitiveClass;
+import static com.n9mtq4.reflection.ReflectionHelper.isPrimitive;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by will on 1/28/16 at 8:22 PM.
