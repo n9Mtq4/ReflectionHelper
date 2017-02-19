@@ -6,3 +6,6 @@ out/
 doc/
 ._*
 build/
+.gradle/
+ReflectionHelper-source.zip
+ReflectionHelper.jar
