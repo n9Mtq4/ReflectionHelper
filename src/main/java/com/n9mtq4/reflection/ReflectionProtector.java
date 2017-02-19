@@ -27,9 +27,9 @@ public final class ReflectionProtector {
 	 * the first one requires the default index to be 3
 	 * the second one requires the default index to be 3
 	 * */
-	private StackTraceElement[] getStackTrace() {
-		return new Throwable().getStackTrace();
-//		return Thread.currentThread().getStackTrace();
+	private static StackTraceElement[] getStackTrace() {
+		return new Throwable().getStackTrace(); // DEFAULT_INDEX = 3;
+//		return Thread.currentThread().getStackTrace(); // DEFAULT_INDEX = 4;
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public final class ReflectionProtector {
 	 * @return boolean - if the calling method was invoked with reflection
 	 * */
 	public static boolean usedReflection() {
-		return usedReflection(Thread.currentThread().getStackTrace());
+		return usedReflection(getStackTrace());
 	}
 	
 	private static boolean usedReflection(StackTraceElement[] stackTraceElements) {
@@ -56,7 +56,7 @@ public final class ReflectionProtector {
 	 * @return boolean - if the stacktrace at the given index is a reflection one.
 	 * */
 	public static boolean usedReflection(int index) {
-		return usedReflection(index, Thread.currentThread().getStackTrace());
+		return usedReflection(index, getStackTrace());
 	}
 	
 	private static boolean usedReflection(int index, StackTraceElement[] stackTraceElements) {
@@ -73,13 +73,13 @@ public final class ReflectionProtector {
 	 * @return boolean - if the stacktrace within the two ranges is a reflection one
 	 * */
 	public static boolean usedReflection(int min, int max) {
-		return usedReflection(min, max, Thread.currentThread().getStackTrace());
+		return usedReflection(min, max, getStackTrace());
 	}
 	
 	private static boolean usedReflection(int min, int max, StackTraceElement[] stackTraceElements) {
 		for (int i = min; i < max; i++) {
-			if (stackTraceElements[i].getClassName().startsWith("java.lang.reflect") || stackTraceElements[i].getClassName().startsWith("sun.reflect")) return true;
-			
+			if (stackTraceElements[i].getClassName().startsWith("java.lang.reflect") || 
+					stackTraceElements[i].getClassName().startsWith("sun.reflect")) return true;
 		}
 		return false;
 	}
